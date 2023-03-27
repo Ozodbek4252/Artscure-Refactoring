@@ -55,5 +55,4 @@ class Type extends Model
     {
         return $this->hasMany(Tool::class);
     }
-
 }

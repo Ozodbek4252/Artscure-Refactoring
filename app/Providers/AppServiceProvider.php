@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Pagination\Paginator;
 
+use App\Services\CurrencyService;
+use App\Interfaces\CurrencyServiceInterface;
+use App\Repositories\CurrencyRepository;
+use App\Interfaces\CurrencyRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(CurrencyServiceInterface::class, CurrencyService::class);
+        $this->app->bind(CurrencyRepositoryInterface::class, CurrencyRepository::class);
     }
 
     /**

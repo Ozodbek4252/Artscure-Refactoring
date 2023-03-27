@@ -3,15 +3,23 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Currency;
-use App\Models\CurrencyValue;
+use App\Http\Requests\CurrencyRequest;
+use App\Interfaces\CurrencyServiceInterface;
 use Illuminate\Http\Request;
+use App\Models\Currency;
 
 class CurrencyController extends Controller
 {
+    protected $currencyService;
+
+    public function __construct(CurrencyServiceInterface $currencyService)
+    {
+        $this->currencyService = $currencyService;
+    }
+
     public function index()
     {
-        $currencies = Currency::paginate(20);
+        $currencies = $this->currencyService->getAllCurrencies(10);
         return view('dashboard.currency.index', compact('currencies'));
     }
 
@@ -20,19 +28,10 @@ class CurrencyController extends Controller
         return view('dashboard.currency.create');
     }
 
-    public function store(Request $request)
+    public function store(CurrencyRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'value' => 'required',
-        ]);
-
-        $currency = new Currency();
-        $currency->name = $request->name;
-        $currency->value = $request->value;
-        $currency->save();
-
-        return redirect()->route('currencies.index');
+        $this->currencyService->createCurrency($request);
+        return redirect()->route('currencies.index')->with('success', 'Currency created successfully');
     }
 
     public function edit(Currency $currency)
@@ -40,24 +39,15 @@ class CurrencyController extends Controller
         return view('dashboard.currency.edit', compact('currency'));
     }
 
-    public function update(Request $request, Currency $currency)
+    public function update(CurrencyRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'value' => 'required',
-        ]);
-
-        $currency->name = $request->name;
-        $currency->value = $request->value;
-        $currency->save();
-
-        return redirect()->route('currencies.index');
+        $this->currencyService->updateCurrency($request, $id);
+        return redirect()->route('currencies.index')->with('success', 'Currency updated successfully');
     }
 
-    public function destroy(Currency $currency)
+    public function destroy($id)
     {
-        $currency->delete();
-
-        return redirect()->route('currencies.index');
+        $this->currencyService->deleteCurrency($id);
+        return redirect()->route('currencies.index')->with('success', 'Currency deleted successfully');
     }
 }
