@@ -60,7 +60,7 @@ Route::get('/products/filter', [ProductController::class, 'filterProduct']);
 Route::get('/products/{slug}', [ProductController::class, 'show']);
 
 // Help
-Route::get('/helps/create', [HelpController::class, 'store']);
+Route::post('/helps', [HelpController::class, 'store']);
 
 // Types
 Route::get('/types', [TypeController::class, 'index']); //------------------------------

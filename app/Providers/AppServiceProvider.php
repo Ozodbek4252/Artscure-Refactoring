@@ -17,6 +17,11 @@ use App\Interfaces\ContactServiceInterface;
 use App\Repositories\ContactRepository;
 use App\Interfaces\ContactRepositoryInterface;
 
+use App\Services\HelpService;
+use App\Interfaces\HelpServiceInterface;
+use App\Repositories\HelpRepository;
+use App\Interfaces\HelpRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ContactServiceInterface::class, ContactService::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
+
+        $this->app->bind(HelpServiceInterface::class, HelpService::class);
+        $this->app->bind(HelpRepositoryInterface::class, HelpRepository::class);
     }
 
     /**

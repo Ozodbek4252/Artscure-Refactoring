@@ -2,35 +2,33 @@
 
 namespace App\Services;
 
-use App\Exceptions\Help\HelpStoreException;
-use Illuminate\Support\Facades\DB;
-use App\Models\Help;
+use App\Interfaces\HelpRepositoryInterface;
+use App\Interfaces\HelpServiceInterface;
+use Illuminate\Http\Request;
 
-class HelpService
+class HelpService implements HelpServiceInterface
 {
-    public $request;
-    public $help;
-    public $client;
-    public $basket;
+    protected $helpRepository;
 
-    public function __construct($request = null)
+    public function __construct(HelpRepositoryInterface $helpRepository)
     {
-        $this->request = $request->only(['name', 'phone']);
+        $this->helpRepository = $helpRepository;
     }
 
-    /**
-     * @throws HelpStoreException
-     */
-    public function store()
+    public function getAllHelps($perPage = 20)
     {
-        DB::beginTransaction();
-        try {
-            $this->help = Help::create($this->request);
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            throw new HelpStoreException("Cannot store. Error:{$exception->getMessage()}");
-        }
-        DB::commit();
-        return $this;
+        return $this->helpRepository->getAll($perPage);
+    }
+
+    public function createHelp(Request $request)
+    {
+        $helpData = $request->all();
+        return $this->helpRepository->create($helpData);
+    }
+
+    public function deleteHelp($helpId)
+    {
+        return $this->helpRepository->delete($helpId);
     }
 }
+

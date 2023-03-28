@@ -9,61 +9,50 @@ use App\Http\Requests\HelpRequest;
 
 use App\Http\Resources\HelpResource;
 use App\Http\Resources\ErrorResource;
-
-use App\Models\Help;
-use App\Services\HelpService;
+use App\Interfaces\HelpServiceInterface;
 
 class HelpController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $helpService;
+
+    public function __construct(HelpServiceInterface $helpService)
+    {
+        $this->helpService = $helpService;
+    }
+
     public function index(Request $request)
     {
         try {
-            $helps = Help::paginate($request->get('limit'));
+            $helps = $this->helpService->getAllHelps($request->get('limit'));
         } catch (\Exception $exception) {
-            return (new ErrorResource("Client Store {$exception->getMessage()}", 'Try again later'))->response()->setStatusCode(403);
+            return (new ErrorResource("Help Store {$exception->getMessage()}", 'Try again later'))->response()->setStatusCode(403);
         }
 
-        return $helps;
+        return response()->json([
+            'success' => true,
+            'data' => $helps
+        ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(HelpRequest $request)
     {
         try {
-            $help = (new HelpService($request))->store()->help;
+            $help = $this->helpService->createHelp($request);
         } catch (\Exception $exception) {
-            return (new ErrorResource("Client Store {$exception->getMessage()}", 'Try again later'))->response()->setStatusCode(403);
+            return (new ErrorResource("Help Store {$exception->getMessage()}", 'Try again later'))->response()->setStatusCode(403);
         }
 
-
-        return response()->json(new HelpResource($help), 200);
+        return (new HelpResource($help))->response()->setStatusCode(201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try {
-            $help = Help::find($id);
-            $help->delete();
+            $this->helpService->deleteHelp($id);
         } catch (\Exception $exception) {
-            return (new ErrorResource("Client Store {$exception->getMessage()}", 'Try again later'))->response()->setStatusCode(403);
+            return (new ErrorResource("Help Store {$exception->getMessage()}", 'Try again later'))->response()->setStatusCode(403);
         }
 
-        return response()->json(['message' => 'Deleted Successfully'], 200);
+        return response()->json(['message' => 'Deleted Successfully'], 204);
     }
 }
