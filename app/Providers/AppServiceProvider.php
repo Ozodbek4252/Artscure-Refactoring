@@ -12,6 +12,11 @@ use App\Interfaces\CurrencyServiceInterface;
 use App\Repositories\CurrencyRepository;
 use App\Interfaces\CurrencyRepositoryInterface;
 
+use App\Services\ContactService;
+use App\Interfaces\ContactServiceInterface;
+use App\Repositories\ContactRepository;
+use App\Interfaces\ContactRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(CurrencyServiceInterface::class, CurrencyService::class);
         $this->app->bind(CurrencyRepositoryInterface::class, CurrencyRepository::class);
+
+        $this->app->bind(ContactServiceInterface::class, ContactService::class);
+        $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
     }
 
     /**

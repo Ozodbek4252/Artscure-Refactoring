@@ -73,7 +73,7 @@ Route::get('/artists/popular', [ArtistController::class, 'getPopular']);
 Route::get('/artists/{slug}', [ArtistController::class, 'show']);
 
 // Contact
-Route::get('/contacts/create', [ContactController::class, 'store']);
+Route::post('/contacts', [ContactController::class, 'store']);
 
 // Banner
 Route::get('/banners', [BannerController::class, 'index']);
@@ -129,7 +129,6 @@ Route::group([
 
     // Contact
     Route::get('/contacts', [ContactController::class, 'index']);
-    Route::get('/contacts/{num}', [ContactController::class, 'paginate']);
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
 
     // Banner
