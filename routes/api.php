@@ -79,7 +79,7 @@ Route::post('/contacts', [ContactController::class, 'store']);
 Route::get('/banners', [BannerController::class, 'index']);
 
 // Request
-Route::get('/requests/create', [RequestController::class, 'store']);
+Route::post('/requests', [RequestController::class, 'store']);
 
 // Tool
 Route::get('/tools', [ToolController::class, 'index']);

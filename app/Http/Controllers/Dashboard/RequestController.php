@@ -3,29 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Request;
-
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
+use App\Interfaces\RequestServiceInterface;
 
 class RequestController extends Controller
 {
-    // use File;
+    protected $requestService;
+
+    public function __construct(RequestServiceInterface $requestService)
+    {
+        $this->requestService = $requestService;
+    }
 
     public function index()
     {
-        $requests = Request::orderBy('created_at', 'desc')->paginate(20);
+        $requests = $this->requestService->getAllRequests();
         return view('dashboard.request.index', ['requests' => $requests]);
     }
 
     public function destroy($id)
     {
         try {
-            $request = Request::findOrFail($id);
-            if (file_exists($request->portfolio)) {
-                unlink($request->portfolio);
-            }
-            $request->delete();
+            $this->requestService->deleteRequest($id);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }

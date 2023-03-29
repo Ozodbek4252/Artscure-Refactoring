@@ -22,6 +22,11 @@ use App\Interfaces\HelpServiceInterface;
 use App\Repositories\HelpRepository;
 use App\Interfaces\HelpRepositoryInterface;
 
+use App\Services\RequestService;
+use App\Interfaces\RequestServiceInterface;
+use App\Repositories\RequestRepository;
+use App\Interfaces\RequestRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -39,6 +44,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(HelpServiceInterface::class, HelpService::class);
         $this->app->bind(HelpRepositoryInterface::class, HelpRepository::class);
+
+        $this->app->bind(RequestServiceInterface::class, RequestService::class);
+        $this->app->bind(RequestRepositoryInterface::class, RequestRepository::class);
     }
 
     /**

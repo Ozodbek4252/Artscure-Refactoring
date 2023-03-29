@@ -10,7 +10,6 @@ use App\Models\Tool;
 use App\Models\Toolable;
 use App\Models\Type;
 use App\Services\ArtistService;
-use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
@@ -43,7 +42,7 @@ class ArtistController extends Controller
     public function store(ArtistRequest $request)
     {
         try {
-            $artist = (new ArtistService($request))->store();
+            (new ArtistService($request))->store();
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
