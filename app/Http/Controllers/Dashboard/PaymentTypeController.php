@@ -4,15 +4,20 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentTypeRequest;
-use App\Http\Resources\PaymentTypeResource;
-use App\Models\PaymentType;
-use Illuminate\Http\Request;
+use App\Interfaces\PaymentTypeServiceInterface;
 
 class PaymentTypeController extends Controller
 {
+    protected $paymentTypeService;
+
+    public function __construct(PaymentTypeServiceInterface $paymentTypeService)
+    {
+        $this->paymentTypeService = $paymentTypeService;
+    }
+
     public function index()
     {
-        $payment_types = PaymentType::orderBy('updated_at', 'desc')->paginate(20);
+        $payment_types = $this->paymentTypeService->getAllPaymentTypes(10);
         return view('dashboard.payment_type.index', compact('payment_types'));
     }
 
@@ -24,9 +29,7 @@ class PaymentTypeController extends Controller
     public function store(PaymentTypeRequest $request)
     {
         try {
-            $payment_type = new PaymentType();
-            $payment_type->name = $request->name;
-            $payment_type->save();
+            $this->paymentTypeService->createPaymentType($request);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
@@ -34,16 +37,10 @@ class PaymentTypeController extends Controller
         return redirect()->route('paymentTypes.index');
     }
 
-    public function show($id)
-    {
-        $payment_type = PaymentType::find($id);
-        return new PaymentTypeResource($payment_type);
-    }
-
     public function edit($id)
     {
         try {
-            $payment_type = PaymentType::find($id);
+            $payment_type = $this->paymentTypeService->getPaymentTypeById($id);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
@@ -51,12 +48,10 @@ class PaymentTypeController extends Controller
         return view('dashboard.payment_type.edit', compact('payment_type'));
     }
 
-    public function update(Request $request, $id)
+    public function update(PaymentTypeRequest $request, $id)
     {
         try {
-            $payment_type = PaymentType::find($id);
-            $payment_type->name = $request->name;
-            $payment_type->save();
+            $this->paymentTypeService->updatePaymentType($request, $id);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }
@@ -67,8 +62,7 @@ class PaymentTypeController extends Controller
     public function destroy($id)
     {
         try {
-            $payment_type = PaymentType::find($id);
-            $payment_type->delete();
+            $this->paymentTypeService->deletePaymentType($id);
         } catch (\Exception $exception) {
             return redirect()->back()->withErrors($exception->getMessage());
         }

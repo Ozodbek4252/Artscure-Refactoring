@@ -19,7 +19,7 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        $currencies = $this->currencyService->getAllCurrencies(10);
+        $currencies = $this->currencyService->getAllCurrencies(20);
         return view('dashboard.currency.index', compact('currencies'));
     }
 
