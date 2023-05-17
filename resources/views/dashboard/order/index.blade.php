@@ -54,7 +54,7 @@
                                 <td>
                                     <button type="button" class="form-control btn btn-outline-danger"
                                         data-bs-toggle="modal" data-bs-target="#animationModal{{ $order->id }}"
-                                        style="width: auto;">Delete</button>
+                                        style="width: auto;">{{ __('body.Delete') }}</button>
                                     {{--  <a href="{{ Route('orders.edit', $order->slug) }}"
                                         class="form-control btn btn-outline-warning" style="width: auto;">Edit</a>  --}}
                                 </td>
@@ -66,14 +66,14 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel5">Confirmation</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel5">{{ __('body.Confirmation') }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col mb-3">
-                                                    <p>Do you really want to delete this data?</p>
+                                                    <p>{{ __('body.Do you really want to delete this data?') }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                             <form action="{{ Route('orders.destroy', $order->slug) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-danger">{{ __('body.Delete') }}</button>
                                             </form>
                                         </div>
                                     </div>
