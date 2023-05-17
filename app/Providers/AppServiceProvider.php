@@ -32,6 +32,11 @@ use App\Interfaces\PaymentTypeServiceInterface;
 use App\Repositories\PaymentTypeRepository;
 use App\Interfaces\PaymentTypeRepositoryInterface;
 
+use App\Services\TypeService;
+use App\Interfaces\TypeServiceInterface;
+use App\Repositories\TypeRepository;
+use App\Interfaces\TypeRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -55,6 +60,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(PaymentTypeServiceInterface::class, PaymentTypeService::class);
         $this->app->bind(PaymentTypeRepositoryInterface::class, PaymentTypeRepository::class);
+
+        $this->app->bind(TypeServiceInterface::class, TypeService::class);
+        $this->app->bind(TypeRepositoryInterface::class, TypeRepository::class);
     }
 
     /**
