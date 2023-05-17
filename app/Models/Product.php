@@ -42,20 +42,21 @@ class Product extends Model
 
     public static function boot()
     {
+        function random_string($num)
+        {
+            $chars = 'abcdefghijklmnopqrstuvwxyz';
+            $size = strlen($chars);
+            $str = '';
+            for ($i = 0; $i < $num; $i++) {
+                $str = $str . '' . $chars[rand(0, $size - 1)];
+            }
+            return $str;
+        }
+
         parent::boot();
         self::creating(function ($model) {
             do {
-                function random_str($num)
-                {
-                    $chars = 'abcdefghijklmnopqrstuvwxyz';
-                    $size = strlen($chars);
-                    $str = '';
-                    for ($i = 0; $i < $num; $i++) {
-                        $str = $str . '' . $chars[rand(0, $size - 1)];
-                    }
-                    return $str;
-                }
-                $str = random_str(5) . rand(10000, 99999);
+                $str = random_string(5) . rand(10000, 99999);
             } while (self::where('sku', $str)->exists());
 
             $model->sku = $str;
