@@ -238,11 +238,12 @@
                         @php
                             $resell = json_decode($product->resell, true);
                         @endphp
+                        
                         {{--  Resell name  --}}
                         <div class="card-body d-flex">
                             <div class="col-md-4">
                                 <label class="form-label" for="resell_name_uz">{{ __('body.Resell Name Uz') }}</label>
-                                <input name="resell_name_uz" value="{{$resell['resell_name_uz']}}" type="text" id="resell_name_uz"
+                                <input name="resell_name_uz" value="{{$resell ? $resell['resell_name_uz'] : ''}}" type="text" id="resell_name_uz"
                                     class="form-control" placeholder="{{ __('body.Resell Name Uz') }}" />
                                 @error('resell_name_uz')
                                     <span class="error alert-danger">{{ $message }}</span>
@@ -250,7 +251,7 @@
                             </div>
                             <div class="col-md-4 px-2">
                                 <label class="form-label" for="resell_name_ru">{{ __('body.Resell Name Ru') }}</label>
-                                <input name="resell_name_ru" value="{{$resell['resell_name_ru']}}" type="text" id="resell_name_ru"
+                                <input name="resell_name_ru" value="{{$resell ? $resell['resell_name_ru'] : ''}}" type="text" id="resell_name_ru"
                                     class="form-control" placeholder="{{ __('body.Resell Name Ru') }}" />
                                 @error('resell_name_ru')
                                     <span class="error alert-danger">{{ $message }}</span>
@@ -258,7 +259,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="resell_name_en">{{ __('body.Resell Name En') }}</label>
-                                <input name="resell_name_en" value="{{$resell['resell_name_en']}}" type="text"
+                                <input name="resell_name_en" value="{{$resell ? $resell['resell_name_en'] : ''}}" type="text"
                                     id="resell_name_en" class="form-control"
                                     placeholder="{{ __('body.Resell Name En') }}" />
                                 @error('resell_name_en')
@@ -272,7 +273,7 @@
                             <div class="col-md-4">
                                 <label class="form-label" for="resell_body_uz">{{ __('body.Resell Body Uz') }}</label>
                                 <textarea name="resell_body_uz" type="text" id="resell_body_uz" class="form-control"
-                                    placeholder="{{ __('body.Resell Body Uz') }}">{{$resell['resell_body_uz']}}</textarea>
+                                    placeholder="{{ __('body.Resell Body Uz') }}">{{$resell ? $resell['resell_body_uz'] : ''}}</textarea>
                                 @error('resell_body_uz')
                                     <span class="error alert-danger">{{ $message }}</span>
                                 @enderror
@@ -281,7 +282,7 @@
                             <div class="col-md-4 px-2">
                                 <label class="form-label" for="resell_body_ru">{{ __('body.Resell Body Ru') }}</label>
                                 <textarea name="resell_body_ru" type="text" id="resell_body_ru" class="form-control"
-                                    placeholder="{{ __('body.Resell Body Ru') }}">{{$resell['resell_body_ru']}}</textarea>
+                                    placeholder="{{ __('body.Resell Body Ru') }}">{{$resell ? $resell['resell_body_ru'] : ''}}</textarea>
                                 @error('resell_body_ru')
                                     <span class="error alert-danger">{{ $message }}</span>
                                 @enderror
@@ -290,7 +291,7 @@
                             <div class="col-md-4">
                                 <label class="form-label" for="resell_body_en">{{ __('body.Resell Body En') }}</label>
                                 <textarea name="resell_body_en" type="text" id="resell_body_en" class="form-control"
-                                    placeholder="{{ __('body.Resell Body En') }}">{{$resell['resell_body_en']}}</textarea>
+                                    placeholder="{{ __('body.Resell Body En') }}">{{$resell ? $resell['resell_body_en'] : ''}}</textarea>
                                 @error('resell_body_en')
                                     <span class="error alert-danger">{{ $message }}</span>
                                 @enderror
