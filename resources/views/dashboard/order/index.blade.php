@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-label-secondary"
-                                                data-bs-dismiss="modal">Close</button>
+                                                data-bs-dismiss="modal">{{__('body.Close') }}</button>
                                             <form action="{{ Route('orders.destroy', $order->slug) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')

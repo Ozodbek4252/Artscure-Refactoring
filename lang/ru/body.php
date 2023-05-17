@@ -32,7 +32,7 @@ return [
     'Category Update' => 'Обновить категорию',
     'Back' => 'Назад',
     'Update' => 'Обновить',
-    'Slug' => 'Slug',
+    'Slug' => 'Слаг',
     'Views' => 'Просмотры',
     'Types List' => 'Список типов',
     'Types Update' => 'Обновить тип',
