@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CurrencyRequest;
 use App\Interfaces\CurrencyServiceInterface;
-use Illuminate\Http\Request;
 use App\Models\Currency;
 
 class CurrencyController extends Controller

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestRequest;
 use App\Http\Resources\ErrorResource;
 use App\Http\Resources\RequestResource;
+
 use App\Interfaces\RequestServiceInterface;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
