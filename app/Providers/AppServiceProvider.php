@@ -37,6 +37,11 @@ use App\Interfaces\TypeServiceInterface;
 use App\Repositories\TypeRepository;
 use App\Interfaces\TypeRepositoryInterface;
 
+use App\Services\NewsCategoryService;
+use App\Interfaces\NewsCategoryServiceInterface;
+use App\Repositories\NewsCategoryRepository;
+use App\Interfaces\NewsCategoryRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -63,6 +68,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(TypeServiceInterface::class, TypeService::class);
         $this->app->bind(TypeRepositoryInterface::class, TypeRepository::class);
+
+        $this->app->bind(NewsCategoryServiceInterface::class, NewsCategoryService::class);
+        $this->app->bind(NewsCategoryRepositoryInterface::class, NewsCategoryRepository::class);
     }
 
     /**

@@ -14,9 +14,6 @@ use App\Traits\UtilityTrait;
 class TypeService implements TypeServiceInterface
 {
     use UtilityTrait;
-    public $attributes;
-    public $type;
-    public $image;
 
     protected $typeRepository;
 

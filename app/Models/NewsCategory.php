@@ -13,7 +13,7 @@ class NewsCategory extends Model
 
     protected $table = 'news_categories';
 
-    protected $guraded = ['id'];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'id' => 'integer',
