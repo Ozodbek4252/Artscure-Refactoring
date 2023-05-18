@@ -10,9 +10,9 @@ interface TypeRepositoryInterface
 
     public function create(array $data): Type;
 
-    public function find(string $slug): ?Type;
+    public function findBySlug(string $slug): ?Type;
 
-    public function update(int $id, array $data): bool;
+    public function update(Type $type, array $data): ?Type;
 
-    public function delete(int $id): bool;
+    public function delete(Type $type): bool;
 }

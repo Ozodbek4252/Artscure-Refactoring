@@ -17,18 +17,19 @@ class TypeRepository implements TypeRepositoryInterface
         return Type::create($data);
     }
 
-    public function find(string $slug): ?Type
+    public function findBySlug(string $slug): ?Type
     {
         return Type::where('slug', $slug)->first();
     }
 
-    public function update(int $id, array $data): bool
+    public function update(Type $type, array $data): ?Type
     {
-        return Type::find($id)->update($data);
+        $type->update($data);
+        return $type->refresh();
     }
 
-    public function delete(int $id): bool
+    public function delete(Type $type): bool
     {
-        return Type::find($id)->delete();
+        return $type->delete();
     }
 }
